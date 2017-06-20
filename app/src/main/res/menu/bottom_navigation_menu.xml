@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_apps_black_24dp"
+        android:title="@string/menu_1" />
+
+    <item
+        android:icon="@drawable/icon_list"
+        android:title="@string/menu_2" />
+
+</menu>

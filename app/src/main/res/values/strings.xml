@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Messy</string>
+    <string name="auth_client_id">864952285473-r5tjo44spjtrcum1qcuich8emg832vvl.apps.googleusercontent.com</string>
+
+    <string name="tab_1">Label 1</string>
+    <string name="tab_2">Label 2</string>
+
+    <string name="menu_1">Service</string>
+    <string name="menu_2">List</string>
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#16a085">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="메시지를 보낼 시점(베터리 퍼센트) 선택"/>
+
+    <Spinner
+        android:id="@+id/spinner_perc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:popupBackground="@color/colorPrimaryDark"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/msg_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        app:counterOverflowTextAppearance="@style/MyOverflowText">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/msg_input_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:hint="Message"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_send_fbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_send_black_24dp"
+        fab:fab_colorNormal="@color/fabPrimary"
+        fab:fab_colorPressed="@color/fabPressed"
+        fab:fab_colorRipple="@color/fabRipple" />
+
+</LinearLayout>

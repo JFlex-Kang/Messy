@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="데이터 세팅"
+        android:textSize="30sp" />
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/battery_progress"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/txt_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:donut_finished_color="#0080ff"
+        app:donut_progress="10"
+        app:donut_text_color="#ff6666"
+        app:donut_unfinished_color="#ff6666" />
+
+    <TextView
+        android:id="@+id/txt_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/battery_progress"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="20sp"
+        android:text="베터리 퍼센트 선택"
+        android:textSize="15sp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/layout_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_mid"
+        android:layout_margin="15sp"
+        android:layout_marginTop="20dp"
+        android:clipChildren="false">
+
+        <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
+            android:id="@+id/seekbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_val_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekbar1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="0"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txt_val_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/seekbar1"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:text="30"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/msg_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_seekbar"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        app:counterOverflowTextAppearance="@style/MyOverflowText">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/msg_input_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Message"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textMultiLine" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_send_fbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_send_black_24dp"
+        fab:fab_colorNormal="@color/fabPrimary"
+        fab:fab_colorPressed="@color/fabPressed"
+        fab:fab_colorRipple="@color/fabRipple"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/msg_input_layout"
+        android:layout_marginBottom="88dp"/>
+</RelativeLayout>
