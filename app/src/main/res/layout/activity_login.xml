@@ -2,36 +2,83 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_screen4">
+    android:background="@color/bg_screen4"
+    android:gravity="center">
 
     <LinearLayout
         android:id="@+id/signIn_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="@dimen/img_width_height"
-            android:layout_height="@dimen/img_width_height"
-            android:layout_marginBottom="10sp"
-            android:src="@drawable/phone_dead" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="하단 버튼을 클릭하여 로그인하세요"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:text="MESSY"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/top_edit_bg"
+                android:hint="이메일"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bot_edit_bg"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+
+        </LinearLayout>
+
+        <Button
+            style="@style/ButtonTrans"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="로그인"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:text="아이디가 없으신가요?"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_sign_in_google"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30sp" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_sign_in_fb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"/>
     </LinearLayout>
 
 </RelativeLayout>

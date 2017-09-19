@@ -2,17 +2,27 @@ package devicewills.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cracking.jflex.devicewilly.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -24,7 +34,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
@@ -42,9 +54,12 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
 
     private LinearLayout signIn_Layout;
     private SignInButton mSignInBtn;
+    private LoginButton mFbSigninBtn;
+
+    private CallbackManager callbackManager;
 
     private Animation zoomIn;
-    private  ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +67,7 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.activity_login);
 
         mSignInBtn = (SignInButton) findViewById(R.id.btn_sign_in_google);
+        mSignInBtn.setSize(SignInButton.SIZE_WIDE);
         signIn_Layout = (LinearLayout) findViewById(R.id.signIn_layout);
 
         zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoomin);
@@ -62,6 +78,31 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
 
         //파이어베이스 인증 인스턴스 가져옴
         mFbAuth = FirebaseAuth.getInstance();
+
+        //페이스북 로그인 응답 처리 콜백관리자 생성
+        callbackManager = CallbackManager.Factory.create();
+
+        mFbSigninBtn = (LoginButton) findViewById(R.id.btn_sign_in_fb);
+        mFbSigninBtn.setReadPermissions("email", "public_profile");
+        mFbSigninBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.e("ActivitySignIn", "fb:onSuceess" + loginResult);
+                firebaseWithFaceBook(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e("ActivitySignIn", "fb:onCancel");
+                Snackbar.make(getWindow().getDecorView().getRootView(), "인증실패.", Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("ActivitySignIn", "fb:onError" + error);
+                Snackbar.make(getWindow().getDecorView().getRootView(), "인증실패.", Snackbar.LENGTH_SHORT).show();
+            }
+        });
 
         settingListener();
 
@@ -79,6 +120,7 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
                     Intent intent = new Intent(ActivitySignIn.this, ActivityMenu.class);
                     startActivity(intent);
                     finish();
+                    Toast.makeText(ActivitySignIn.this, user.getDisplayName() + "님 돌아오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     //로그인 비활성화시
                 }
@@ -138,6 +180,29 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
                 Snackbar.make(getWindow().getDecorView().getRootView(), "인증실패.", Snackbar.LENGTH_SHORT).show();
             }
         }
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void firebaseWithFaceBook(AccessToken accessToken) {
+        Log.d("ActivitySignIn", "firebaseWithFB");
+
+        showProgressDialog();
+
+        //페이스북 로그인 계정의 토큰을 가져와 인증정보로 변환
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+
+        //파이어베이스 인증전보를 인증함
+        mFbAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                //인증 실패시
+                if (!task.isSuccessful()) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "인증실패.", Snackbar.LENGTH_SHORT).show();
+                }
+                dismissProgressDialog();
+            }
+        });
     }
 
     private void firebaseWithGoogle(GoogleSignInAccount account) {
@@ -164,13 +229,13 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
 
     }
 
-    private void showProgressDialog(){
+    private void showProgressDialog() {
         progressDialog = new ProgressDialog(ActivitySignIn.this);
         progressDialog.setMessage("로그인 중...");
         progressDialog.show();
     }
 
-    private void dismissProgressDialog(){
+    private void dismissProgressDialog() {
         progressDialog.dismiss();
     }
 }

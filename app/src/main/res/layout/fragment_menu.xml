@@ -39,8 +39,7 @@
         android:layout_marginRight="20sp"
         android:layout_marginTop="20sp"
         android:text="베터리 퍼센트 선택"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 
     <RelativeLayout
         android:id="@+id/layout_seekbar"
@@ -107,11 +106,11 @@
         android:id="@+id/fab_send_fbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/msg_input_layout"
+        android:layout_marginBottom="88dp"
         android:src="@mipmap/ic_send_black_24dp"
         fab:fab_colorNormal="@color/fabPrimary"
         fab:fab_colorPressed="@color/fabPressed"
-        fab:fab_colorRipple="@color/fabRipple"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/msg_input_layout"
-        android:layout_marginBottom="88dp"/>
+        fab:fab_colorRipple="@color/fabRipple" />
 </RelativeLayout>

@@ -90,6 +90,7 @@ public class WillService extends Service {
                 sendSms(list.get(i).getmContactNum(), PreferencesUtil.getPreferences(WillService.this, "bty_msg"));
             }
             unregisterReceiver(mBatteryRecv);
+            unregisterReceiver(sendReceiver);
 
             stopService(new Intent(this, WillService.class));
         }

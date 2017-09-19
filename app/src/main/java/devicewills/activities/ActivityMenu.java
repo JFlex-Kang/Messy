@@ -23,6 +23,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 import com.cracking.jflex.devicewilly.R;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -131,6 +132,8 @@ public class ActivityMenu extends AppCompatActivity {
                             public void onConnected(@Nullable Bundle bundle) {
 
                                 mFbAuth.signOut();
+                                LoginManager.getInstance().logOut();
+
                                 if (mGoogleApiClient.isConnected()) {
                                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                                         @Override
@@ -150,6 +153,7 @@ public class ActivityMenu extends AppCompatActivity {
                                 Log.d(null, "Google API Client Connection Suspend");
                             }
                         });
+
                     }
                 }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
                     @Override

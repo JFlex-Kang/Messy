@@ -18,6 +18,10 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <style name="ButtonTrans" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/btn_trans</item>
+    </style>
+
     <style name="MyOverflowText" parent="TextAppearance.AppCompat.Small">
         <item name="android:textColor">@color/Pomegranate</item>
     </style>
