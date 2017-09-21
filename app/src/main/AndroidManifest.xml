@@ -58,7 +58,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
+        <activity android:name="devicewills.activities.ActivityRegister" />
+        <activity android:name="devicewills.activities.ActivityForgetPw"></activity>
     </application>
 
 </manifest>

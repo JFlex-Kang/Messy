@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cracking.jflex.devicewilly.R;
@@ -53,8 +56,13 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private LinearLayout signIn_Layout;
+    private EditText editFbEmail;
+    private EditText editFbPassword;
+    private Button btnemailLogin;
     private SignInButton mSignInBtn;
     private LoginButton mFbSigninBtn;
+    private TextView txtRegister;
+    private TextView txtForget;
 
     private CallbackManager callbackManager;
 
@@ -82,6 +90,22 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
         //페이스북 로그인 응답 처리 콜백관리자 생성
         callbackManager = CallbackManager.Factory.create();
 
+        txtRegister = (TextView) findViewById(R.id.txt_register);
+        txtRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivitySignIn.this, ActivityRegister.class));
+            }
+        });
+
+        txtForget = (TextView) findViewById(R.id.txt_forget);
+        txtForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivitySignIn.this, ActivityForgetPw.class));
+            }
+        });
+
         mFbSigninBtn = (LoginButton) findViewById(R.id.btn_sign_in_fb);
         mFbSigninBtn.setReadPermissions("email", "public_profile");
         mFbSigninBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -104,6 +128,36 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
             }
         });
 
+        editFbEmail = (EditText) findViewById(R.id.edit_fb_email);
+        editFbPassword = (EditText) findViewById(R.id.edit_fb_pw);
+        btnemailLogin = (Button) findViewById(R.id.btnEmailLogin);
+        btnemailLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgressDialog();
+                mFbAuth.signInWithEmailAndPassword(editFbEmail.getText().toString(), editFbPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        dismissProgressDialog();
+
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(ActivitySignIn.this, ActivityMenu.class));
+                        } else {
+                            Log.e("Login Error", String.valueOf(task.getException()));
+                            if (task.getException().getMessage().equals("The password is invalid or the user does not have a password.")) {
+                                Toast.makeText(ActivitySignIn.this, "비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                            } else if (task.getException().getMessage().equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
+                                Toast.makeText(ActivitySignIn.this, "없는 계정이거나 삭제된 계정입니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ActivitySignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
         settingListener();
 
     }
@@ -120,12 +174,12 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
                     Intent intent = new Intent(ActivitySignIn.this, ActivityMenu.class);
                     startActivity(intent);
                     finish();
-                    Toast.makeText(ActivitySignIn.this, user.getDisplayName() + "님 돌아오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     //로그인 비활성화시
                 }
             }
         };
+
 
         mSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +286,7 @@ public class ActivitySignIn extends AppCompatActivity implements GoogleApiClient
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(ActivitySignIn.this);
         progressDialog.setMessage("로그인 중...");
+        progressDialog.setCancelable(false);
         progressDialog.show();
     }
 

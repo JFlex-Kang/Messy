@@ -32,6 +32,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/edit_fb_email"
                 android:layout_width="fill_parent"
                 android:layout_height="46dp"
                 android:background="@drawable/top_edit_bg"
@@ -39,6 +40,7 @@
                 android:paddingLeft="10dp" />
 
             <EditText
+                android:id="@+id/edit_fb_pw"
                 android:layout_width="fill_parent"
                 android:layout_height="46dp"
                 android:background="@drawable/bot_edit_bg"
@@ -49,6 +51,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnEmailLogin"
             style="@style/ButtonTrans"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -57,28 +60,48 @@
             android:textColor="#ffffff"
             android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="casual"
-            android:text="아이디가 없으신가요?"
-            android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txt_forget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
+                android:text="비밀번호를 잊으셨나요?"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/txt_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="casual"
+                android:text="아이디가 없으신가요?"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_sign_in_google"
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp" />
+            android:layout_marginTop="30sp"
+            android:paddingLeft="6dp"/>
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_sign_in_fb"
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"/>
+            android:paddingBottom="14dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="14dp" />
     </LinearLayout>
 
 </RelativeLayout>

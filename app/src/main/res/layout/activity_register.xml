@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen4"
+    tools:context="devicewills.activities.ActivityRegister">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/toolbar_color" />
+
+    <RelativeLayout
+        android:id="@+id/layout_Register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:id="@+id/layout_register_form"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="아래 정보를 입력하여 회원가입을 합니다."
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/top_edit_bg"
+                android:hint="이름"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/mid_edit_bg"
+                android:hint="이메일"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/mid_edit_bg"
+                android:hint="비밀번호(6자리 이상)"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/edit_password_repeat"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bot_edit_bg"
+                android:hint="비밀번호 다시 입력"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_register"
+            style="@style/ButtonTrans"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+</RelativeLayout>

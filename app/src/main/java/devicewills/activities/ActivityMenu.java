@@ -30,6 +30,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -76,6 +77,12 @@ public class ActivityMenu extends AppCompatActivity {
 
         //파이어베이스 인증 인스턴스 가져옴
         mFbAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser curUser = mFbAuth.getCurrentUser();
+        if (curUser.getDisplayName() != null) {
+            if(curUser.getDisplayName().toString().getBytes().length>0)
+            Toast.makeText(ActivityMenu.this, curUser.getDisplayName() + "님 돌아오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
+        }
 
         checker = new ServiceRunningChecker();
         isServiceRunning = checker.isServiceRunning("devicewills.services.WillService", getApplicationContext());
